@@ -1,0 +1,17 @@
+version: '3.3'
+services:
+
+  datascience-notebook:
+    build:
+      context: images
+      dockerfile: Dockerfile
+    container_name: tensorflow-notebook
+    ports:
+      - '8888:8888'
+    environment:
+#      - JUPYTER_ENABLE_LAB=yes
+      - CHOWN_HOME=yes
+      - RESTARTABLE=yes
+      - GRANT_SUDO=yes
+    volumes:
+      - '${PWD}/work:/home/jovyan/work'

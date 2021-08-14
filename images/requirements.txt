@@ -1,0 +1,5 @@
+black==21.7b0
+coloredlogs==15.0.1
+CoolProp==6.4.1
+ipyparallel==6.3.0
+logger==1.4
