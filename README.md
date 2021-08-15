@@ -1,12 +1,19 @@
 
-Dockerfile Lint
+## Dockerfile Lint
 
     docker run --rm -i hadolint/hadolint < images/Dockerfile
 
+## Run with Compose
 
     docker-compose up
 
+## Build the docker container
+
     docker build --tags tensorflow-notebook -f images/Dockerfile
+
+
+## Run in a Docker container
+    
     docker run --rm -p 8888:8888 \
         -e JUPYTER_ENABLE_LAB=yes  \
         -e CHOWN_HOME=yes \
@@ -15,23 +22,32 @@ Dockerfile Lint
         -f ./images/Dockerfile
 
 
-Add a formatter
+## Add a formatter
 
-    docker exec -it tensorflow-notebook sh
-    jupyter labextension install jupyterlab-cell-formatter-black
+Note the formatter is applied to the container in the docker image
 
-
-    docker exec -it thesis_datascience-notebook_1 sh
-
-    conda install  --yes black && \
-    conda clean --all -f -y && \
-    fix-permissions "${CONDA_DIR}" && \
-    fix-permissions "/home/${NB_USER}"
-
-  
-    jupyter nbextension install https://github.com/drillan/jupyter-black/archive/master.zip
+    jupyter contrib nbextension install --user
+    jupyter nbextension install https://github.com/drillan/jupyter-black/archive/master.zip --user
     jupyter nbextension
-    jupyter nbextension install --sys-prefix --symlink --py jupyter_dash
-    jupyter nbextension enable --py jupyter_dash
+    jupyter nbextension enable codefolding/main
 
-    jupyter labextension install jupyterlab-cell-formatter-black
+
+### House keeping
+
+
+    nbqa black refrigeration.ipynb --nbqa-mutate
+    nbqa isort refrigeration.ipynb --nbqa-mutate 
+    nbqa doctestmart_meter_energy.ipynb
+
+
+# To Latex
+
+    jupyter nbconvert --to markdown refrigeration.ipynb
+    
+    pandoc --listings -f markdown -t latex refrigeration.md -o refrigeration.tex
+
+    jupyter nbconvert --to webpdf refrigeration.ipynb --allow-chromium-download
+    
+    jupyter nbconvert --to notebook refrigeration.ipynb
+    
+    jupyter nbconvert myslides.ipynb --to slides --post serve

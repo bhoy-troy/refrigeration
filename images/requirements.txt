@@ -2,4 +2,10 @@ black==21.7b0
 coloredlogs==15.0.1
 CoolProp==6.4.1
 ipyparallel==6.3.0
+isort==5.9.3
+jupyter-datatables==0.3.9
 logger==1.4
+numpy==1.19.5
+pandoc-1.1.0
+nbconvert[webpdf]
+nbqa==1.1.0
